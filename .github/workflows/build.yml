@@ -15,6 +15,11 @@ jobs:
         run: npm i
       - name: Build
         run: npm build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: pkg
+          path: ./
       - name: Commit build
         if: github.ref == 'refs/heads/main'
         uses: endbug/add-and-commit@v4
