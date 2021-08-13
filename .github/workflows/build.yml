@@ -23,12 +23,10 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install
         run: yarn --prefer-offline --frozen-lockfile --no-progress --non-interactive
-      - name: Lint
-        run: yarn lint
       - name: Build
         run: yarn build
       - name: Commit build
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         uses: endbug/add-and-commit@v4
         with:
           add: build
