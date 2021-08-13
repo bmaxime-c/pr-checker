@@ -1,0 +1,42 @@
+name: 'PR Checker'
+description: 'Checks if the PR is following your guidelines'
+author: 'bmaxime-c'
+
+inputs:
+  ticket-prefix:
+    description: 'Prefix of your ticket in your ticket management system (ex. JIRA)'
+    required: true
+    default: 'JIRA-'
+    
+  title-regex: 
+    description: 'Regular expression to check if your title is OK according to your naming convention'
+    required: true
+    default: 'JIRA-<ticketId>'
+
+  title-regex-flags: 
+    description: 'Flags to apply for title-regex'
+    required: true
+    default: 'gi'
+
+  title-regex-errormessage:
+    description: 'Message displayed when the title-regex returns no match'
+    required: false
+    default: 'Title does not respect the naming convention.'
+    
+  branch-regex:
+    description: 'Regular expression to check if your branch name is OK according to your naming convention'
+    required: true
+    default: 'JIRA-<ticketId>'
+
+  branch-regex-flags: 
+    description: 'Flags to apply for branch-regex'
+    required: true
+    default: 'g'
+    
+runs:
+  using: 'node12'
+  main: 'build/index.js'
+  
+branding:
+  icon: 'git-pull-request'
+  color: 'blue'
