@@ -1,0 +1,36 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Check commit msg
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: 'DRWN-[0-9]{3-5}'
+          error: 'The commit message must contain a JIRA ticket reference (eg. DRWN-000)'
+          excludeDescription: 'true' # optional: this excludes the description body of a pull request
+          excludeTitle: 'false' # optional: this excludes the title of a pull request
+          checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
+          accessToken: ${{ secrets.GITHUB_TOKEN }} # github access token is only required if checkAllCommitMessages is true
